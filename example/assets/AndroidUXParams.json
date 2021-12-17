@@ -1,0 +1,440 @@
+{
+  "UIConfig": {
+    "globalTheme": {
+      "shouldShowlinkUnderline": true,
+      "linkColor": "",
+      "sectionalUI": "true",
+      "sectionalDrawableColor": "",
+      "selectedSectionalDrawableColor": "#AAD2FA",
+      "selectedSectionalTextColor": "#0072DE"
+    },
+    "pageHeader": {
+      "fontName": "",
+      "fontSize": "",
+      "fontTextStyle": 1,
+      "textColor": ""
+    },
+    "bannerTheme": {
+      "backgroundColor": "#FFFCCC",
+      "summary": {
+        "title": {
+          "typeFaceKey": "roboto_medium",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 3,
+          "textAlignment": 2,
+          "textColor": "#252525"
+        },
+        "description": {
+          "typeFaceKey": "roboto_regular",
+          "fontName": "",
+          "fontSize": "16",
+          "fontTextStyle": 0,
+          "textAlignment": 2,
+          "textColor": "#505050"
+        }
+      },
+      "buttons": {
+        "closeButtonColor": "",
+        "acceptAll": {
+          "backgroundColor": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 0,
+          "textColor": "#FAFAFA",
+          "borderColor": "",
+          "borderWidth": "",
+          "borderRadius": "500"
+        },
+        "rejectAll": {
+          "backgroundColor": "",
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": "",
+          "borderColor": "",
+          "borderWidth": "",
+          "borderRadius": "1000"
+        },
+        "showPreferences": {
+          "backgroundColor": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": "",
+          "borderColor": "",
+          "borderWidth": "",
+          "borderRadius": "1000"
+        }
+      },
+      "links": {
+        "policyLink": {
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": ""
+        },
+        "vendorList": {
+          "typeFaceKey": "roboto_medium",
+          "fontName": "",
+          "fontSize": "16",
+          "fontTextStyle": 0,
+          "textAlignment": 2,
+          "textColor": "#505050"
+        }
+      }
+    },
+    "preferenceCenterTheme": {
+      "backgroundColor": "#F0F0F0",
+      "lineBreakColor": "",
+      "toggleThumbColorOn": "",
+      "toggleThumbColorOff": "",
+      "toggleTrackColor": "#0381FE",
+      "showLogoOnPC": true,
+      "summary": {
+        "title": {
+          "typeFaceKey": "roboto_medium",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": "#252525"
+        },
+        "description": {
+          "typeFaceKey": "roboto_regular",
+          "fontName": "",
+          "fontSize": "16",
+          "fontTextStyle": 0,
+          "textAlignment": 5,
+          "textColor": "#505050"
+        }
+      },
+      "purposesTitle": {
+        "typeFaceKey": "roboto_medium",
+        "fontName": "",
+        "fontSize": "",
+        "fontTextStyle": 1,
+        "textColor": "#252525"
+      },
+      "purposesAlwaysActiveStatus": {
+        "typeFaceKey": "roboto_regular",
+        "fontName": "",
+        "fontSize": "",
+        "fontTextStyle": 1,
+        "textColor": ""
+      },
+      "buttons": {
+        "closeButtonColor": "",
+        "backButtonColor": "",
+        "acceptAll": {
+          "backgroundColor": "",
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 0,
+          "textColor": "",
+          "borderColor": "",
+          "borderWidth": "1",
+          "borderRadius": "1000"
+        },
+        "rejectAll": {
+          "backgroundColor": "",
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": "",
+          "borderColor": "",
+          "borderWidth": "",
+          "borderRadius": ""
+        },
+        "confirmMyChoice": {
+          "backgroundColor": "",
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 0,
+          "textColor": "",
+          "borderColor": "",
+          "borderWidth": "1",
+          "borderRadius": "1000"
+        }
+      },
+      "links": {
+        "policyLink": {
+          "typeFaceKey": "roboto_medium",
+          "fontName": "",
+          "fontSize": "16",
+          "fontTextStyle": 0,
+          "textColor": ""
+        },
+        "vendorList": {
+          "typeFaceKey": "roboto_regular",
+          "fontName": "",
+          "fontSize": "18",
+          "fontTextStyle": 1,
+          "textColor": "#252525"
+        }
+      }
+    },
+    "purposeDetailsTheme": {
+      "backgroundColor": "#F0F0F0",
+      "lineBreakColor": "",
+      "toggleThumbColorOn": "",
+      "toggleThumbColorOff": "",
+      "toggleTrackColor": "#0381FE",
+      "backButtonColor": "",
+      "groupSummary": {
+        "title": {
+          "typeFaceKey": "roboto_medium",
+          "fontName": "19",
+          "fontSize": "",
+          "fontTextStyle": 0,
+          "textColor": "#252525"
+        },
+        "description": {
+          "typeFaceKey": "roboto_regular",
+          "fontName": "",
+          "fontSize": "13",
+          "fontTextStyle": 0,
+          "textColor": "#8C8C8C",
+          "textAlignment": 5
+        }
+      },
+      "consentTitle": {
+        "typeFaceKey": "roboto_medium",
+        "fontName": "",
+        "fontSize": "18",
+        "fontTextStyle": 0,
+        "textColor": "#252525"
+      },
+      "legitInterestTitle": {
+        "typeFaceKey": "roboto_medium",
+        "fontName": "",
+        "fontSize": "18",
+        "fontTextStyle": 0,
+        "textColor": "#252525"
+      },
+      "purposesAlwaysActiveStatus": {
+        "typeFaceKey": "",
+        "fontName": "",
+        "fontSize": "",
+        "fontTextStyle": 1,
+        "textColor": ""
+      },
+      "links": {
+        "sdkList": {
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": ""
+        },
+        "vendorList": {
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": ""
+        },
+        "fullLegalText": {
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 0,
+          "textColor": ""
+        }
+      }
+    },
+    "vendorListTheme": {
+      "backgroundColor": "#F0F0F0",
+      "lineBreakColor": "",
+      "toggleThumbColorOn": "",
+      "toggleThumbColorOff": "",
+      "toggleTrackColor": "#0381FE",
+      "filterOnColor": "",
+      "filterOffColor": "",
+      "filterSelectionColor": "",
+      "searchBar": {
+        "textColor": "",
+        "placeholderTextColor": "",
+        "backgroundColor": "",
+        "iconColor": "",
+        "borderColor": "",
+        "clearButtonColor": "",
+        "borderWidth": "",
+        "borderRadius": ""
+      },
+      "filterNavText": {
+        "typeFaceKey": "",
+        "fontName": "",
+        "fontSize": "",
+        "fontTextStyle": 1,
+        "textColor": ""
+      },
+      "title": {
+        "typeFaceKey": "roboto_regular",
+        "fontName": "",
+        "fontSize": "18",
+        "fontTextStyle": 1,
+        "textColor": "#252525"
+      },
+      "allowAllToggleText": {
+        "typeFaceKey": "roboto_medium",
+        "fontName": "",
+        "fontSize": "18",
+        "fontTextStyle": 1,
+        "textColor": ""
+      },
+      "filterItemTitle": {
+        "typeFaceKey": "roboto_regular",
+        "fontName": "",
+        "fontSize": "",
+        "fontTextStyle": 1,
+        "textColor": ""
+      },
+      "buttons": {
+        "backButtonColor": "",
+        "confirmMyChoices": {
+          "backgroundColor": "",
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 0,
+          "textColor": "",
+          "borderColor": "",
+          "borderWidth": "",
+          "borderRadius": "1000"
+        },
+        "applyFilter": {
+          "backgroundColor": "",
+          "typeFaceKey": "roboto_regular",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": "",
+          "borderColor": "",
+          "borderWidth": "1",
+          "borderRadius": "1000"
+        }
+      }
+    },
+    "vendorDetailsTheme": {
+      "backgroundColor": "#F0F0F0",
+      "toggleThumbColorOn": "",
+      "toggleThumbColorOff": "",
+      "toggleTrackColor": "#0381FE",
+      "backButtonColor": "",
+      "title": {
+        "typeFaceKey": "",
+        "fontName": "",
+        "fontSize": "",
+        "fontTextStyle": 0,
+        "textColor": ""
+      },
+      "detailsSummary": {
+        "title": {
+          "typeFaceKey": "roboto_regular",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": "#505050"
+        },
+        "description": {
+          "typeFaceKey": "roboto_regular",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 0,
+          "textColor": "#505050"
+        }
+      },
+      "consentTitle": {
+        "typeFaceKey": "",
+        "fontName": "",
+        "fontSize": "",
+        "fontTextStyle": 0,
+        "textColor": "#252525"
+      },
+      "legitInterestTitle": {
+        "typeFaceKey": "",
+        "fontName": "",
+        "fontSize": "",
+        "fontTextStyle": 0,
+        "textColor": "#252525"
+      },
+      "links": {
+        "privacyNotice": {
+          "typeFaceKey": "roboto_medium",
+          "fontName": "",
+          "fontSize": "16",
+          "fontTextStyle": 0,
+          "textColor": ""
+        }
+      }
+    },
+    "sdkListTheme": {
+      "backgroundColor": "",
+      "lineBreakColor": "",
+      "filterOnColor": "",
+      "filterOffColor": "",
+      "searchBar": {
+        "textColor": "",
+        "placeholderTextColor": "",
+        "backgroundColor": "",
+        "iconColor": "",
+        "borderColor": "",
+        "clearButtonColor": "",
+        "borderWidth": "",
+        "borderRadius": ""
+      },
+      "summary": {
+        "title": {
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": ""
+        },
+        "description": {
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": ""
+        }
+      },
+      "filterList": {
+        "selectionColor": "",
+        "navItem": {
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": ""
+        },
+        "sdkItem": {
+          "typeFaceKey": "",
+          "fontName": "",
+          "fontSize": "",
+          "fontTextStyle": 1,
+          "textColor": ""
+        },
+        "buttons": {
+          "backButtonColor": "",
+          "applyFilter": {
+            "backgroundColor": "",
+            "typeFaceKey": "",
+            "fontName": "",
+            "fontSize": "",
+            "fontTextStyle": 1,
+            "textColor": "",
+            "borderColor": "",
+            "borderWidth": "",
+            "borderRadius": ""
+          }
+        }
+      }
+    }
+  }
+}
