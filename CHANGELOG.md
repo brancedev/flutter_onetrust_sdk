@@ -1,3 +1,6 @@
+## 6.29.0
+* Added support for OneTrust 6.29.0
+
 ## 6.28.0
 * Added support for OneTrust 6.28.0
 

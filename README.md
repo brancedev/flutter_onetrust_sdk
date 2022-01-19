@@ -1,6 +1,7 @@
 # OTPublishersNativeSDK
 
 Expose OneTrust's Native CMP platform to your Flutter project.
+Current version: 6.29.0
 
 # Getting Started
 ## Versioning

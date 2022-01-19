@@ -43,8 +43,8 @@ class _MyAppState extends State<MyApp> {
       Exception("Platform not found!");
       return;
     }
-    // String AndroidUXParams = await DefaultAssetBundle.of(context)
-    //     .loadString("assets/AndroidUXParams.json");
+    String AndroidUXParams = await DefaultAssetBundle.of(context)
+        .loadString("assets/AndroidUXParams.json");
     Map<String, String> params = {
       "countryCode": "US",
       "regionCode": "GA",
@@ -76,20 +76,20 @@ class _MyAppState extends State<MyApp> {
   }
 
   void startListening() {
-    // var consentListener =
-    //     OTPublishersNativeSDK.listenForConsentChanges(["C0003", "C0004"])
-    //         .listen((event) {
-    //   setCategoryState(event['categoryId'], event['consentStatus']);
-    //   print("New status for " +
-    //       event['categoryId'] +
-    //       " is " +
-    //       event['consentStatus'].toString());
-    // });
+    var consentListener =
+        OTPublishersNativeSDK.listenForConsentChanges(["C0003", "C0004"])
+            .listen((event) {
+      setCategoryState(event['categoryId'], event['consentStatus']);
+      print("New status for " +
+          event['categoryId'] +
+          " is " +
+          event['consentStatus'].toString());
+    });
 
-    // var interactionListener =
-    //     OTPublishersNativeSDK.listenForUIInteractions().listen((event) {
-    //   print(event);
-    // });
+    var interactionListener =
+        OTPublishersNativeSDK.listenForUIInteractions().listen((event) {
+      print(event);
+    });
 
     //consentListener.cancel(); //Cancel event stream before opening a new one
   }

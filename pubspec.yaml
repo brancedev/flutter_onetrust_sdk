@@ -1,6 +1,6 @@
 name: onetrust_publishers_native_cmp
 description: Add the OneTrust native CMP to your Flutter project.
-version: 6.28.0
+version: 6.29.0
 homepage: https://onetrust.com
 
 environment:
