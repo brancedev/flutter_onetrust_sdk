@@ -1,12 +1,8 @@
-/build
 *.iml
 .gradle
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-*.xcbuild
-.packages
-*.lock
-.dart_tool/
-.favorites.json
+/build
+/captures

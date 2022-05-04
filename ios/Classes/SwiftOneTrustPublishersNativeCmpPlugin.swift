@@ -5,7 +5,7 @@ import AppTrackingTransparency
 
 public class SwiftOneTrustPublishersNativeCmpPlugin: NSObject, FlutterPlugin {
     var viewController:FlutterViewController?
-    
+    let OT = OTPublishersHeadlessSDK.shared
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "onetrust_publishers_native_cmp", binaryMessenger: registrar.messenger())
         let instance = SwiftOneTrustPublishersNativeCmpPlugin()
@@ -52,10 +52,39 @@ public class SwiftOneTrustPublishersNativeCmpPlugin: NSObject, FlutterPlugin {
                let categoryId = args["forCategory"]{
                 result(OTPublishersHeadlessSDK.shared.getConsentStatus(forCategory: categoryId))
             }
+        case "getAgeGatePromptValue":
+            result(OTPublishersHeadlessSDK.shared.getAgeGatePromptValue())
         case "getOTConsentJSForWebView":
             result(OTPublishersHeadlessSDK.shared.getOTConsentJSForWebView())
         case "getCachedIdentifier":
             result(OTPublishersHeadlessSDK.shared.cache.dataSubjectIdentifier)
+            
+            /* The GET byoui methods return a dict which iOS can send over to Flutter, but on Android, they generate JSON, which can't be sent back to Flutter without conversion. So we send both platforms as JSON strings to avoid any Flutter-side encode/decode logic. 
+             */
+        case "getBannerData":
+            result(String.JSONString(from:OT.getBannerData()))
+        case "getDomainInfo":
+            result(String.JSONString(from:OT.getDomainInfo()))
+        case "getCommonData":
+            result(String.JSONString(from:OT.getCommonData()))
+        case "getDomainGroupData":
+            result(String.JSONString(from:OT.getDomainGroupData()))
+        case "getPreferenceCenterData":
+            result(String.JSONString(from:OT.getDomainGroupData()))
+        case "updatePurposeConsent":
+            if let args = call.arguments as? [String:Any?],
+               let group = args["group"] as? String,
+               let consentValue = args["consentValue"] as? Bool{
+                OT.updatePurposeConsent(forGroup: group, consentValue: consentValue)
+            }
+        case "resetUpdatedConsent":
+            OT.resetUpdatedConsent()
+        case "saveConsent":
+            if let args = call.arguments as? [String:Int],
+               let rawInteraction = args["interactionType"],
+               let interactionEnum = ConsentInteractionType(rawValue: rawInteraction){
+                OT.saveConsent(type: interactionEnum)
+            }
         default:
             print("Invalid Method")
         }
@@ -87,11 +116,7 @@ public class SwiftOneTrustPublishersNativeCmpPlugin: NSObject, FlutterPlugin {
     }
     
     private func showConsentUI(for permissionInt:Int, result: @escaping FlutterResult){
-        guard #available(iOS 14, *) else {
-            //If iOS version is not available, pass back 4 (platformNotSupported)
-            result(4)
-            return
-        }
+
         
         var permissionType:AppPermissionType?
         
@@ -99,21 +124,39 @@ public class SwiftOneTrustPublishersNativeCmpPlugin: NSObject, FlutterPlugin {
         switch permissionInt{
         case 0:
             permissionType = .idfa
+        case 1:
+            permissionType = .ageGate
         default:
             permissionType = nil
         }
         //Only proceed if we have a valid permissionType and the viewController is valid.
-        guard let newPermissionType = permissionType,
-              let vc = viewController else {
-            let error = FlutterError(code: "consentUI_err", message: "Invalid permissionType or ViewController was not able to be located for presentation.", details: "Pass a valid OTPermissionType")
-            result(error)
-            return
-        }
         
-        OTPublishersHeadlessSDK.shared.showConsentUI(for: newPermissionType, from: vc){
+        guard let permissionType = permissionType,
+              let vc = viewController else {
+                  let error = FlutterError(code: "consentUI_err", message: "Invalid permissionType or ViewController was not able to be located for presentation.", details: "Pass a valid OTPermissionType")
+                  result(error)
+                  return
+              }
+        
+        
+        
+        OTPublishersHeadlessSDK.shared.showConsentUI(for: permissionType, from: vc){
             /*after user dismisses the ATT prompt, pass back the rawValue of the type
-              this is converted into an enum on the Flutter side */
-            result(ATTrackingManager.trackingAuthorizationStatus.rawValue)
+             this is converted into an enum on the Flutter side */
+            var resultValue:Int? = nil
+            switch permissionType{
+            case .ageGate:
+                resultValue = OTPublishersHeadlessSDK.shared.getAgeGatePromptValue()
+            case .idfa:
+                if #available(iOS 14, *) {
+                    resultValue = Int(ATTrackingManager.trackingAuthorizationStatus.rawValue)
+                } else {
+                    resultValue = 4 //result value for platformNotSupported, if iOS 14 is not available
+                }
+            default:
+                resultValue = -1
+            }
+            result(resultValue)
         }
     }
 }
@@ -196,7 +239,7 @@ extension FlutterViewController:OTEventListener{
     public func onHideBanner() {emit.event?(eventData(eventName: "onHideBanner").format())}
     public func onShowBanner() {emit.event?(eventData(eventName: "onShowBanner").format())}
     public func onBannerClickedRejectAll() {emit.event?(eventData(eventName: "onBannerClickedRejectAll").format())}
-    public func onBannerClickedAcceptAll() {emit.event?(eventData(eventName: "onBannerclickedAcceptAll").format())}
+    public func onBannerClickedAcceptAll() {emit.event?(eventData(eventName: "onBannerClickedAcceptAll").format())}
     public func onShowPreferenceCenter() {emit.event?(eventData(eventName: "onShowPreferenceCenter").format())}
     public func onHidePreferenceCenter() {emit.event?(eventData(eventName: "onHidePreferenceCenter").format())}
     public func onPreferenceCenterRejectAll() {emit.event?(eventData(eventName: "onPreferenceCenterRejectAll").format())}
@@ -221,4 +264,15 @@ extension FlutterViewController:OTEventListener{
         emit.event?(eventData(eventName: "allSDKViewsDismissed", payload: ["interactionType":interactionType.description as Any]).format() )
     }
     
+}
+
+extension String{
+    static func JSONString(from dict:[String:Any]?) -> String?{
+        if let dict = dict,
+           let json = try? JSONSerialization.data(withJSONObject: dict, options: .fragmentsAllowed){
+            return String(data: json, encoding: .utf8)
+        }else{
+            return nil
+        }
+    }
 }

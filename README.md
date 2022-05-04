@@ -1,7 +1,6 @@
 # OTPublishersNativeSDK
 
 Expose OneTrust's Native CMP platform to your Flutter project.
-Current version: 6.29.0
 
 # Getting Started
 ## Versioning
@@ -26,6 +25,8 @@ platform :ios, '11.0'
 ```
 
 In Android, the underlying Native SDK requires a `FragmentActivity` in order to render a UI. In your Android `MainActivity.java` file, ensure that the `MainActivity` class is extending `FlutterFragmentActivity`. 
+
+Additionally, Android must use `targetSdkVersion 31` and `compileSDKVersion 31` or higher.
 
 ```java
 public class MainActivity extends FlutterFragmentActivity {
@@ -97,26 +98,42 @@ try{
     }
 ```
 
-### App Tracking Transparency
-A pre-permission prompt can be displayed before the App Tracking Transparency prompt is surfaced on iOS 14+.
+### Permission Prompts (App Tracking Transparency and Age Gate)
+A permission prompt can be displayed for several reasons. Currently, two prompts are supported on Flutter: the App Tracking Transparency pre-prompt and the Age Gate prompt.
+
+To surface these prompts, ensure that they have been configured in your OneTrust template. The prompts are surfaced by calling `showConsentUI` and passing in an `OTDevicePermission` enum. An integer is returned that indicates the result of the prompt.
 ```dart
- OTATTrackingAuthorizationStatus authStatus = await OTPublishersNativeSDK.showConsentUI(OTDevicePermission.idfa);
+//IDFA/ATT - iOS Only
+ int authStatus = await OTPublishersNativeSDK.showConsentUI(OTDevicePermission.idfa);
+ //Use the following to get the status as an enum -- there are several outcomes for IDFA specifically
+ OTATTrackingAuthorizationStatus IDFAStatus = OTATTrackingAuthorizationStatus.values[authStatus];
+
+ //Age Gate - iOS and Android
+ int authStatus = await OTPublishersNativeSDK.showConsentUI(OTDevicePermission.AgeGate);
+ //returns a 0 (user responded no) or a 1 (user responded yes)
 ```
-This method will not resolve until the user has made a selection within the native iOS App Tracking Transparency prompt.
+This method will not resolve until the user has made a selection for the permission prompt..
 
 This method takes an argument of type `OTDevicePermission`, which is provided as an `enum` for ease of use. It returns an `OTATTrackingAuthorizationStatus`.
-
+#### Query ATT Status
 The current status of App Tracking Transparency can be obtained by calling
 ```dart
 OTATTrackingAuthorizationStatus authStatus = await OTPublishersNativeSDK.getATTrackingAuthorizationStatus();
 ```
 
-Both of the above methods return an `OTATTTrackingAuthorizationStatus` which is namespaced as such to avoid issues with other ATT plugins being used. For unsupported OS versions (all Android versions and iOS versions < 14,) this function will immediately return `platformNotSupported`. Possible values of the enum are
+The above method returns an `OTATTTrackingAuthorizationStatus` which is namespaced as such to avoid issues with other ATT plugins being used. For unsupported OS versions (all Android versions and iOS versions < 14,) this function will immediately return `platformNotSupported`. Possible values of the enum are
 * `notDetermined`
 * `restricted`
 * `denied`
 * `authorized`
 * `platformNotSupported`
+  
+#### Query for Age Gate Status
+The current status of the Age Gate can be obtained by calling
+```dart
+int authStatus = await OTPublishersNativeSDK.getAgeGatePromptValue()
+```
+This method will return a 0 for a No response to the Age Gate and a 1 for a Yes response.
 
 ## Android - Custom Styling with UXParams JSON
 OneTrust allows you to add custom styling to your preference center by passing in style JSON in a certain format. Build out your JSON by following the guide in the [OneTrust Developer Portal](https://developer.onetrust.com/sdk/mobile-apps/android/customize-ui).
@@ -264,3 +281,83 @@ OneTrust sets a GUID to identify the user for audit purposes. The identifier can
 ```dart
 String id = await OTPublishersNativeSDK.getCachedIdentifier();
 ```
+
+## Inject Consent to WebView
+If you use WebViews in your applications, you may encounter a situation where you render a webpage running OneTrust’s Cookie Consent module, and the cookie banner is displayed. OneTrust provides a native way to take the consent gathered from the Native SDK and pass it down to the WebView.
+
+To do this, simply call the function below to request a JavaScript variable from the OneTrust SDK. Placing this on the OneTrust SDK before the Cookies SDK loads will suppress the banner and pass consent to the WebView.
+
+```dart
+String jsToPass = await OTPublishersNativeSDK.getOTConsentJSForWebview();
+```
+
+## Build Your Own UI
+The OneTrust SDK offers several methods that can be leveraged to build your own interface.
+
+### Get Domain Info
+This method returns a map containing all the information about the domain (application) including rulesets and template configurations.
+```dart
+Map<String, dynamic> domainInfo = await OTPublishersNativeSDK.getDomainInfo();
+```
+
+### Get Common Data
+This method returns a map which contains template based information like branding which includes keys for determining colors and styles in the UI specific to a template configured for the user's geolocation along with consent logging information.
+
+```dart
+Map<String, dynamic> commonData = await OTPublishersNativeSDK.getCommonData();
+```
+
+### Get Groups Data
+This method returns a dictionary containing the information about all the categories and sdk IDs specific to a template configured for the user's geolocation. This is generally used to populate the preference center's toggle section.
+
+```dart
+Map<String, dynamic> groups = await OTPublishersNativeSDK.getDomainGroupData();
+```
+
+### Get Banner Data
+This method returns a dictionary which contains all the keys required to render a banner.
+```dart
+Map<String, dynamic> bannerData = await OTPublishersNativeSDK.getBannerData();
+```
+
+### Update Purpose Consent
+This method is used to modify the consent status of a category by passing Custom Group ID as the key and consent status as value. Note that you have to call 'saveConsent(OTInteractionType)', with type being ConsentInteractionType, to have any modifications you perform to actually register in OneTrust SDK. OneTrust will notify the consent status changes to your app on saving changes.
+
+```dart
+  //A user has just toggled on Category C0002
+  OTPublishersNativeSDK.updatePurposeConsent("C0002", true);
+  //After the user has made all of their selections and taps save, execute the saveConsent method below
+```
+### Save Consent
+Call this method to save the user's consent when they've indicated they wish for their consent to take effect. Examples include calling this method when a user accepts all on the banner, or after they've made all of their selections inside of a preference center.
+```dart
+//User confirms their choices in Pref Center
+OTPublishersNativeSDK.saveConsent(OTInteractionType.preferenceCenterConfirm);
+
+//User accepts all on the banner
+OTPublishersNativeSDK.saveConsent(OTInteractionType.bannerAllowAll);
+```
+
+If configured, this will cause a record of consent to be sent. It will also signal the choices to the rest of your application via listeners.
+
+The `OTInteractionType` is a convenient way to keep track of interaction types. There are many, but the most commonly used are
+|Enum Name|Description|
+|-|-|
+|`bannerAllowAll`|User has accepted all on the banner.|
+|`bannerRejectAll`|User has rejected all on teh banner.|
+|`bannerContinueWithoutAccepting`|User has selected the "Continue Without Accepting" CNIL button on the banner.|
+|`bannerClose`|User has closed the banner without making a selection.|
+|`preferenceCenterAllowAll`|User has selected Allow All in the preference center.|
+|`preferenceCenterRejectAll`|User has selected Reject All in the preference center.|
+|`preferenceCenterConfirm`|User has made selections in the Preference Center and tapped Confirm.|
+
+### Reset Local Consent
+If a user has made selections in the preference center but then closes the preference center without saving, call this method to abandon the "staged" consent changes.
+```dart
+OTPublishersNativeSDK.resetUpdatedConsent();
+```
+
+## Resolving Dependency Clashes
+In rare cases, one of the dependencies required by OneTrust's underlying Native Android SDK may clash with dependencies in your application. Most of the time, Gradle will resolve these automatically. If that is not the case however, OneTrust provides the option to suppress all transitive dependencies from the OneTrust `.aar` file.
+
+To suppress all transitive dependencies, add `onetrust.includeTransitiveDependencies=false` to your Android project's `local.properties` file. **If your application suppresses OneTrust's dependencies, the dependencies must be added to your project manually.** A list of required dependencies is available at [Developer.OneTrust.com](https://developer.onetrust.com).

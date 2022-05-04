@@ -1,6 +1,14 @@
 group 'com.onetrust.flutter.otpublishersnativesdk.onetrust_publishers_native_cmp'
 version '1.0'
 
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
 buildscript {
     repositories {
         google()
@@ -22,7 +30,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 16
@@ -32,7 +40,14 @@ android {
     }
 
     dependencies{
-        implementation 'com.onetrust.cmp:native-sdk:6.29.0.0' //update SDK version here
+        def shouldInclude = localProperties.getProperty("onetrust.includeTransitiveDependencies")
+
+        implementation ('com.onetrust.cmp:native-sdk:6.34.1.0') { //update SDK version here
+            
+            if(shouldInclude != null){
+                transitive = shouldInclude.toBoolean()
+            }
+        }
         implementation 'androidx.appcompat:appcompat:1.0.2'
     }
 }

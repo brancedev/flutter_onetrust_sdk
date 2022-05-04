@@ -1,3 +1,24 @@
+## 6.34.1
+* Adds Support for OneTrust 6.34.1
+* Enables Age Gate prompt
+* **Breaking Change** showConsentUI(.idfa) no longer returns the enum for ATTrackingAuthorizationStatus -- use OTATTrackingAuthorizationStatus.values[status] to decode the integer return.
+* Exposes many BYOUI methods to Flutter
+
+## 6.33.0
+* Added support for OneTrust 6.33.0
+
+## 6.32.0
+* Added support for OneTrust 6.32.0
+* Adds ability to suppress all transitive dependencies in Android
+
+## 6.31.0
+* Added support for OneTrust 6.31.0
+
+## 6.30.0
+* Added support for OneTrust 6.30.0
+* Updated example app to Gradle 7.2
+* **Note:** Dependency updates - Android must now use `targetSdkVersion 31` or higher
+
 ## 6.29.0
 * Added support for OneTrust 6.29.0
 

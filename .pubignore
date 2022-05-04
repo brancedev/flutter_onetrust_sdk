@@ -10,3 +10,8 @@
 *.lock
 .dart_tool/
 .favorites.json
+deploy
+/deploy
+deploy.Jenkinsfile
+deploy.json
+run-mobnativesdkflutter.sh

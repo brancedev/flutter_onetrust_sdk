@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'onetrust_publishers_native_cmp'
-  s.version          = '6.29.0.0'
+  s.version          = '6.34.1.0'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
 A new flutter plugin project.
