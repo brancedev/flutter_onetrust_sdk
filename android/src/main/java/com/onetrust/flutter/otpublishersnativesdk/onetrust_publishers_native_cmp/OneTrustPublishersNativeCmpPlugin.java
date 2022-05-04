@@ -198,7 +198,7 @@ public class OneTrustPublishersNativeCmpPlugin implements FlutterPlugin, MethodC
     });
   }
 
-  private void showConsentUI(int devicePermission, Result result){
+  private void showConsentUI(int devicePermission, final Result result){
     /* Transform the devicePermission int from flutter to the counterpart in Android */
     int promptType = OTFlutterConsentUIType.values()[devicePermission].getIntValue();
 
