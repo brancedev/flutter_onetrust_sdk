@@ -275,11 +275,11 @@ This listener accepts an array of strings containing Category IDs to listen for.
 }
 ```
 
-## Get OneTrust-set Data Subject Identifier
-OneTrust sets a GUID to identify the user for audit purposes. The identifier can be used to look up the user's consent history in the OneTrust Consent module. To surface the identifier:
+## Get Current Data Subject Identifier
+OneTrust sets a GUID to identify the user for audit purposes if one is not specified. The identifier of the current suer can be used to look up the user's consent history in the OneTrust Consent module. To surface the identifier:
 
 ```dart
-String id = await OTPublishersNativeSDK.getCachedIdentifier();
+String id = await OTPublishersNativeSDK.getCurrentActiveProfile();
 ```
 
 ## Inject Consent to WebView
@@ -344,7 +344,7 @@ The `OTInteractionType` is a convenient way to keep track of interaction types. 
 |Enum Name|Description|
 |-|-|
 |`bannerAllowAll`|User has accepted all on the banner.|
-|`bannerRejectAll`|User has rejected all on teh banner.|
+|`bannerRejectAll`|User has rejected all on the banner.|
 |`bannerContinueWithoutAccepting`|User has selected the "Continue Without Accepting" CNIL button on the banner.|
 |`bannerClose`|User has closed the banner without making a selection.|
 |`preferenceCenterAllowAll`|User has selected Allow All in the preference center.|

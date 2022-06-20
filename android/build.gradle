@@ -12,7 +12,7 @@ if (localPropertiesFile.exists()) {
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -23,7 +23,7 @@ buildscript {
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
@@ -42,7 +42,7 @@ android {
     dependencies{
         def shouldInclude = localProperties.getProperty("onetrust.includeTransitiveDependencies")
 
-        implementation ('com.onetrust.cmp:native-sdk:6.34.1.0') { //update SDK version here
+        implementation ('com.onetrust.cmp:native-sdk:6.36.0.0') { //update SDK version here
             
             if(shouldInclude != null){
                 transitive = shouldInclude.toBoolean()

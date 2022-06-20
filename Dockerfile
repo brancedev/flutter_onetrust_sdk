@@ -1,4 +1,4 @@
-FROM nexus.onetrust.com:8443/python-3.7-ubuntu:lts
+FROM docker.onetrust.dev/python-3.7-ubuntu:lts
 
 COPY . /
 

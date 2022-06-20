@@ -126,10 +126,10 @@ def packageArtifacts(def artifactId, def branchName) {
       echo "Branch is ${branchName}"
       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-deployer',
                       usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-          sh 'docker login nexus.onetrust.com:8443 -u $USERNAME -p $PASSWORD'
-          sh "docker build -t nexus.onetrust.com:8443/${artifactId}:${version} --pull ."
-          sh "docker push nexus.onetrust.com:8443/${artifactId}:${version}"
-          sh "docker rmi nexus.onetrust.com:8443/${artifactId}:${version}"
+          sh 'docker login docker.onetrust.dev -u $USERNAME -p $PASSWORD'
+          sh "docker build -t docker.onetrust.dev/${artifactId}:${version} --pull ."
+          sh "docker push docker.onetrust.dev/${artifactId}:${version}"
+          sh "docker rmi docker.onetrust.dev/${artifactId}:${version}"
           sh 'docker logout'
       }
   }

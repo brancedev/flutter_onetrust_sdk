@@ -58,6 +58,8 @@ public class SwiftOneTrustPublishersNativeCmpPlugin: NSObject, FlutterPlugin {
             result(OTPublishersHeadlessSDK.shared.getOTConsentJSForWebView())
         case "getCachedIdentifier":
             result(OTPublishersHeadlessSDK.shared.cache.dataSubjectIdentifier)
+        case "getCurrentActiveProfile":
+            result(OTPublishersHeadlessSDK.shared.currentActiveProfile)
             
             /* The GET byoui methods return a dict which iOS can send over to Flutter, but on Android, they generate JSON, which can't be sent back to Flutter without conversion. So we send both platforms as JSON strings to avoid any Flutter-side encode/decode logic. 
              */

@@ -108,6 +108,7 @@ public class OneTrustPublishersNativeCmpPlugin implements FlutterPlugin, MethodC
         result.success(js);
         break;
       case "getCachedIdentifier":
+      case "getCurrentActiveProfile": //This method will change in the future.
         String id = ot.getOTCache().getDataSubjectIdentifier();
         result.success(id);
         break;

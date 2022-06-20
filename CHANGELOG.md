@@ -1,3 +1,10 @@
+## 6.36.0
+* Adds support for OneTrust 6.36.0
+* Deprecates `getCachedIdentifier` in favor of `getCurrentActiveProfile`
+
+## 6.35.0
+* Adds support for OneTrust 6.35.0
+
 ## 6.34.1
 * Adds Support for OneTrust 6.34.1
 * Enables Age Gate prompt

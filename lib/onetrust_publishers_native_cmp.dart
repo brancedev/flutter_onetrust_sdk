@@ -85,9 +85,17 @@ class OTPublishersNativeSDK {
   }
 
   //Exposes method to get cached identifier from OneTrust
+  @Deprecated(
+      "Use getCurrentActiveProfile instead. This will be removed in a future release.")
   static Future<String?> getCachedIdentifier() async {
     final String? identifier =
         await _channel.invokeMethod('getCachedIdentifier');
+    return identifier;
+  }
+
+  static Future<String?> getCurrentActiveProfile() async {
+    final String? identifier =
+        await _channel.invokeMethod('getCurrentActiveProfile');
     return identifier;
   }
 

@@ -1,9 +1,9 @@
 {
-  "version":"6.34.1",
-  "dot_version": "6.34.1.0",
+  "version":"6.36.0",
+  "dot_version": "6.36.0.0",
   "deploy_to_prod": "y",
   "dry_run":"n",
-  "jira": "MOB-11115",
-  "comments": "MOB-11115 deploy 6.34.1 to Pub.Dev.",
+  "jira": "MOB-11567",
+  "comments": "MOB-11567 deploy 6.36.0 to Pub.Dev.",
   "email_list": "ospirito@onetrust.com"
 }
